@@ -19,6 +19,9 @@ public class TrainCar {
         } else if (cargo.equalsIgnoreCase("potatoes")) {
             trainCarString[1] = " |ooooooo|";
             trainCarString[2] = " |ooooooo|";
+        } else if (cargo.equalsIgnoreCase("kazoos")){
+            trainCarString[1] = " |/o/ /o/|";
+            trainCarString[2] = " |/_/ /_/|";
         } else {
             System.out.println("Cargo not found: " + cargo);
         }

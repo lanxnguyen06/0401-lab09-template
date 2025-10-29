@@ -6,6 +6,8 @@
 
 // TODO - TASK 2
 public class LinkedTrain {
+    public Node head;
+    public int size;
 
     // TODO: define useful attributes
 
@@ -15,28 +17,123 @@ public class LinkedTrain {
     }
 
     // TODO: implement isEmpty()
+    public boolean isEmpty(){
+        return head == null;
+    }
 
     // TODO: implement size()
+    public int size(){
+        return this.size;
+    }
 
     // TODO: implement addFirst
     public void addFirst(String data) {
-
+        TrainCar car = new TrainCar(data);
+        Node newNode = new Node(car);
+        newNode.setNext(head); // set the next node to head
+        head = newNode; // head is the new node
+        size++;
     }
 
     // TODO: implement add
     public void add(String data) {
+        TrainCar car = new TrainCar(data);
+        Node newNode = new Node(car);
 
+        if (head == null){
+            head = newNode;
+        }
+        else{
+            Node current = head; // current node is the head
+            while (current.getNext() != null){ // while the next node is not null
+                current = current.getNext(); // get the next node
+            }
+            current.setNext(newNode); // adds a train car at the end
+        }
+        size++;
     }
 
     // TODO: implement removeFirst()
     // Removes the node at the specified position
     public boolean removeFirst() {
-        return false;
+        if (head == null){
+            return false; // can't remove if nothing is there
+        }
+        else{
+            head = head.getNext(); // set head to next element
+            size--;
+            return true;
+        }
     }
 
     // TODO: implement removeLast())
     public boolean removeLast() {
+        if (head == null){
         return false;
+        }
+
+        if (head.getNext() == null){ // if head is the only element remove it
+            head = null;
+            size--;
+            return true;
+        }
+
+        else{
+            Node current = head;
+            while (current.getNext().getNext() != null){ // checks the element after the next node, if element after next node is null iteration has reached the end
+                current = current.getNext(); // current gets the next node
+            }
+            current.setNext(null); 
+        }
+        size--;
+        return true;
+    }
+    
+    public boolean removeByCargo(String data){
+        TrainCar car = new TrainCar(data); 
+        Node cargoNode = new Node(car);
+        if (head == null){
+            head = cargoNode;
+        }
+
+        Node current = head;
+        for (int i = 0; i < size; i++){
+            if (current != cargoNode){
+                current = current.getNext();
+            }
+            else if (current == cargoNode){
+                Node nodeToRemove = current;
+                current.setNext(nodeToRemove.getNext());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public TrainCar removeAt(int index){ // extra credit
+        if (head == null){
+            return null;
+        }
+
+        if (index == 0){ // if removing head
+            TrainCar data = head.getData();
+            head = head.getNext();
+            size--;
+            return data;
+        }
+
+        Node current = head;
+        for (int i = 0; i < index - 1; i++){
+            if (current.getNext() == null){
+                return null;  
+            }
+            current = current.getNext(); // current = node before the desired node we actually want to remove
+        }
+
+        Node nodeToRemove = current.getNext(); // nodeToRemove = desired node we want to remove
+        TrainCar data = nodeToRemove.getData(); // get string information about desired node
+        current.setNext(nodeToRemove.getNext()); // sets the current to the node after the desired node (basically skipping over the desired node is like removing it)
+        return data;
     }
 
     /*
