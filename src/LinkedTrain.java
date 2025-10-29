@@ -5,6 +5,9 @@
  */
 
 // TODO - TASK 2
+
+import java.util.Arrays;
+
 public class LinkedTrain {
     public Node head;
     public int size;
@@ -90,22 +93,29 @@ public class LinkedTrain {
     }
     
     public boolean removeByCargo(String data){
-        TrainCar car = new TrainCar(data); 
-        Node cargoNode = new Node(car);
         if (head == null){
-            head = cargoNode;
+            return false;
+        }
+        
+        TrainCar targetCargo = new TrainCar(data);
+        String target = Arrays.toString(targetCargo.getTrainCarString());
+
+        if (Arrays.toString(head.getData().getTrainCarString()).equals(target)){
+            head = head.getNext();
+            size--;
+            return true;
         }
 
         Node current = head;
-        for (int i = 0; i < size; i++){
-            if (current != cargoNode){
-                current = current.getNext();
-            }
-            else if (current == cargoNode){
-                Node nodeToRemove = current;
-                current.setNext(nodeToRemove.getNext());
+        while (current != null && current.getNext() != null){
+            String insideCargo = Arrays.toString(current.getNext().getData().getTrainCarString());
+            if (insideCargo.equals(target)){
+                current.setNext(current.getNext().getNext());
+                size--;
                 return true;
             }
+            else
+            current = current.getNext();
         }
         return false;
     }

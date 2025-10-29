@@ -18,13 +18,14 @@ public class TrainStation {
         train.addTrainCar("people");
         train.addTrainCar("kazoos");
         train.addTrainCar("people");
+        train.addTrainCar("potatoes");
         train.addTrainCar("people");
         train.addTrainCar("potatoes");
         train.getTrainCars().removeFirst();
-        train.getTrainCars().removeLast();
-        train.removeFirstTrainCar();
-        train.getTrainCars().removeAt(2);
-        train.getTrainCars().removeByCargo("kazoos");
+        //train.getTrainCars().removeLast();
+        //train.removeFirstTrainCar();
+        //train.getTrainCars().removeAt(2);
+        train.getTrainCars().removeByCargo("people");
         
         train.printTrain();
     }
