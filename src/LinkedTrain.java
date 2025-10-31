@@ -3,33 +3,24 @@
  *
  * Copyright (c) 2025 Nadine von Frankenberg
  */
-
-// TODO - TASK 2
-
 import java.util.Arrays;
 
 public class LinkedTrain {
     public Node head;
-    public int size;
-
-    // TODO: define useful attributes
+    public int size = 0;
 
     // Default constructor
     public LinkedTrain() {
-        // Can be left empty!
     }
 
-    // TODO: implement isEmpty()
     public boolean isEmpty(){
         return head == null;
     }
 
-    // TODO: implement size()
     public int size(){
         return this.size;
     }
 
-    // TODO: implement addFirst
     public void addFirst(String data) {
         TrainCar car = new TrainCar(data);
         Node newNode = new Node(car);
@@ -38,7 +29,6 @@ public class LinkedTrain {
         size++;
     }
 
-    // TODO: implement add
     public void add(String data) {
         TrainCar car = new TrainCar(data);
         Node newNode = new Node(car);
@@ -56,7 +46,6 @@ public class LinkedTrain {
         size++;
     }
 
-    // TODO: implement removeFirst()
     // Removes the node at the specified position
     public boolean removeFirst() {
         if (head == null){
@@ -69,7 +58,7 @@ public class LinkedTrain {
         }
     }
 
-    // TODO: implement removeLast())
+
     public boolean removeLast() {
         if (head == null){
         return false;
@@ -80,7 +69,6 @@ public class LinkedTrain {
             size--;
             return true;
         }
-
         else{
             Node current = head;
             while (current.getNext().getNext() != null){ // checks the element after the next node, if element after next node is null iteration has reached the end
@@ -91,16 +79,36 @@ public class LinkedTrain {
         size--;
         return true;
     }
+
+    public boolean contains(String data){ // extra credit
+        TrainCar containsCargo = new TrainCar(data); // creates a TrainCar object that stores the targeted cargo that needs to be checked
+        String containsTarget = Arrays.toString(containsCargo.getTrainCarString()); // stores the ascii art associated with the target cargo
+
+        if (head == null)
+            return false;
+        
+        Node current = head;
+        while (current != null){
+            String cargoContents = Arrays.toString(current.getData().getTrainCarString()); // check each car's string content
+            if (containsTarget.equals(cargoContents)){ // if the cars equal each others' content
+                System.out.println(data + " are found in the linked list.");
+                return true;
+            }
+            current = current.getNext();
+        }
+        System.out.println(data + " are not found in the linked list.");
+        return false;
+    }
     
-    public boolean removeByCargo(String data){
+    public boolean removeByCargo(String data){ // extra credit
         if (head == null){
             return false;
         }
         
-        TrainCar targetCargo = new TrainCar(data);
-        String target = Arrays.toString(targetCargo.getTrainCarString());
+        TrainCar targetCargo = new TrainCar(data); // creates a TrainCar object that stores the targeted cargo that needs to be removed
+        String target = Arrays.toString(targetCargo.getTrainCarString()); // stores the ascii art associated with the target cargo
 
-        if (Arrays.toString(head.getData().getTrainCarString()).equals(target)){
+        if (Arrays.toString(head.getData().getTrainCarString()).equals(target)){ // check if head is the target
             head = head.getNext();
             size--;
             return true;
@@ -108,9 +116,9 @@ public class LinkedTrain {
 
         Node current = head;
         while (current != null && current.getNext() != null){
-            String insideCargo = Arrays.toString(current.getNext().getData().getTrainCarString());
-            if (insideCargo.equals(target)){
-                current.setNext(current.getNext().getNext());
+            String insideCargo = Arrays.toString(current.getNext().getData().getTrainCarString()); // get the next node and check its ascii art
+            if (insideCargo.equals(target)){ // if same ascii art (same cargo contents)
+                current.setNext(current.getNext().getNext()); // set the next node to the node after the target (skips over the target to "remove" it)
                 size--;
                 return true;
             }
@@ -133,7 +141,7 @@ public class LinkedTrain {
         }
 
         Node current = head;
-        for (int i = 0; i < index - 1; i++){
+        for (int i = 0; i < index - 1; i++){ // do index - 1 so it stops before the targeted index
             if (current.getNext() == null){
                 return null;  
             }
@@ -142,7 +150,7 @@ public class LinkedTrain {
 
         Node nodeToRemove = current.getNext(); // nodeToRemove = desired node we want to remove
         TrainCar data = nodeToRemove.getData(); // get string information about desired node
-        current.setNext(nodeToRemove.getNext()); // sets the current to the node after the desired node (basically skipping over the desired node is like removing it)
+        current.setNext(nodeToRemove.getNext()); // sets the current to the node after the desired node (skipping over the desired node is like removing it)
         return data;
     }
 

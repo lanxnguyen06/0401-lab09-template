@@ -10,11 +10,10 @@ public class TrainStation {
         
         Train train = new Train();
 
-        // Optional: Add another type of cargo
         train.addTrainCar("people");
         train.addTrainCar("potatoes");
         train.addTrainCar("potatoes");
-        train.addTrainCar("kazoos");
+        train.addTrainCar("kazoos"); // added another type of cargo
         train.addTrainCar("people");
         train.addTrainCar("kazoos");
         train.addTrainCar("people");
@@ -22,11 +21,13 @@ public class TrainStation {
         train.addTrainCar("people");
         train.addTrainCar("potatoes");
         train.getTrainCars().removeFirst();
-        //train.getTrainCars().removeLast();
-        //train.removeFirstTrainCar();
-        //train.getTrainCars().removeAt(2);
+        train.getTrainCars().removeLast();
+        train.removeFirstTrainCar();
+        train.getTrainCars().removeAt(2);
         train.getTrainCars().removeByCargo("people");
-        
         train.printTrain();
+        train.getTrainCars().contains("instruments");
+        train.getTrainCars().contains("potatoes");
+        System.out.println("The size of the train is " + train.getTrainCars().size + ", including the head of the train.");
     }
 }
